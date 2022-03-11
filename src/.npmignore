@@ -1,0 +1,8 @@
+hardhat.config.js
+scripts
+test
+coverage
+coverage.json
+cache
+artifacts/build-info
+artifacts/**/*.dbg.json

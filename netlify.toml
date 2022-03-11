@@ -1,0 +1,13 @@
+[build]
+base = "src"
+command = "npm run build && npm run export && cd functions/ && go build -o api ."
+publish = "out"
+
+[build.environment]
+GOOS = "linux"
+GOARCH = "amd64"
+GO_VERSION = "1.17"
+GO_IMPORT_PATH = "github.com/Dentrax/cosigneth/functions"
+
+[functions]
+directory = "functions/"
