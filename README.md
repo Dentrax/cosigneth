@@ -23,6 +23,8 @@
 *cosigneth*, is a decentralized application that runs on Ethereum Rinkeby Testnet. Each signature stored as an NFT using [EIP-721](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md) standard. Sign your image digest using your public address and verify them on the blockchain by Solidity [contract](https://github.com/Dentrax/cosigneth/blob/main/src/contracts/Cosigneth.sol). Custom [serverless function](https://github.com/Dentrax/cosigneth/tree/main/src/functions) is created to interact with OCI registiries with your given [JWT token](https://docs.docker.com/registry/spec/auth/jwt).
 We use [ethers.signMessage()](https://docs.ethers.io/v5/api/signer/#Signer-signMessage) to sign given [image digest](https://github.com/opencontainers/image-spec/blob/main/descriptor.md#digests) using your injected wallet. By giving digest and corresponding signature, we can recover public wallet address by using [ECDSA-tryRecover](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/cryptography/ECDSA.sol) method. See _Appendix F_ in [yellowpaper](https://ethereum.github.io/yellowpaper/paper.pdf) for more information.
 
+[![GIF](.res/preview.gif)](https://cosigneth.dev)
+
 # How to use
 
 ## Prerequisites
@@ -52,7 +54,7 @@ $ curl -L -X POST 'https://auth.docker.io/token' \
 --data-urlencode 'scope=repository:$IMAGE:pull,push'
 ```
 
-> _Replace `$USERNAME`, `$PASSWORD` and `$IMAGE` with yours to [get an access token](https://docs.docker.com/registry/spec/auth/token) from Docker Registry v2 with `300`s expire duration._
+> _Replace `$USERNAME`, `$PASSWORD` and `$IMAGE` with yours to [get an access token](https://docs.docker.com/registry/spec/auth/token) from Docker Registry v2 with `300`s expire duration. This is an example for Docker Registry._
 
 4. Pass your OCI _image reference_ and _token (Without Bearer)_
 5. Wait until image reference validation and signing process
@@ -104,6 +106,49 @@ sequenceDiagram
 		Frontend->>+Ethereum: nft.methods.verify()
 		Ethereum--)-Frontend: Verify Result
 	end
+```
+
+# Verify ETH Object
+
+You can use [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane) to check your `.eth` tag:
+
+```bash
+$ crane ls furkanturkal/busybox
+0.1.0
+0.2.0
+sha256-c734ddd2cee195855d0b5b1906afdf84b68940bc736fca03e2d05d2bd228ea9d.eth
+
+$ crane manifest furkanturkal/busybox:sha256-c734ddd2cee195855d0b5b1906afdf84b68940bc736fca03e2d05d2bd228ea9d.eth | jq
+```
+
+You should expect the following output:
+
+```json
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 233,
+    "digest": "sha256:0a151380f4116c9388e53fd6fae56e0769eaf539e6a5e67116a40f37a8e24f20"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.dev.cosign.simplesigning.v1+json",
+      "size": 252,
+      "digest": "sha256:4a9735466ab2e5ddf42968a8e283fc2232b04b8c3a93cb710a934d6307ea220f",
+      "annotations": {
+        "dev.cosignproject.cosign/blockchain": "Ethereum",
+        "dev.cosignproject.cosign/chainId": "4",
+        "dev.cosignproject.cosign/network": "rinkeby",
+        "dev.cosignproject.cosign/signature": "0x5c4d29575dbb038b12ee2cc49911a8418c243fd404b8c0dfd13e3a24de244c3d7b45e23521a880e6972df76305c662ace2b93006e09865a3e10194cb2bfb30731b",
+        "dev.cosignproject.cosign/signer": "0xd8f88dc38071f700ee5003ebfef73266cf16e5f1",
+        "dev.cosignproject.cosign/timestamp": "1647261544",
+        "dev.cosignproject.cosign/transaction": "0x3f09bbc6ada48c1233bf9f1167c427483234312f8ee907efaa9f91a618aef36f"
+      }
+    }
+  ]
+}
 ```
 
 # Running on Local
