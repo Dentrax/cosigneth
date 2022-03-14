@@ -204,8 +204,16 @@ const Home: NextPage = () => {
 
     console.log(doSignedRes);
 
-    const owner = doSignedRes.response.signers.find((x: { signer: string; }) => x.signer === signer);
+    const owner = doSignedRes.response.signers.find((x: { signer: string; }) => x.signer.toLowerCase() === signer.toLowerCase());
+    console.log("Found signer: ", owner);
 
+    if (!owner) {
+      setVerifyStatus(false);
+      setProgressFail(true);
+      setProgress("Signer not found on image reference");
+      return;
+    }
+    
     setProgress("[2/2] Verifying digest...");
 
     const verifyRes = await verify(image, signer, doSignedRes.response.digest, owner.signature);
