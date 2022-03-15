@@ -25,6 +25,8 @@ We use [ethers.signMessage()](https://docs.ethers.io/v5/api/signer/#Signer-signM
 
 [![GIF](.res/preview.gif)](https://cosigneth.dev)
 
+Active contract: [0x1a0278c2402aa06d88a8d29c0cac8422e983bd55](https://rinkeby.etherscan.io/address/0x1a0278c2402aa06d88a8d29c0cac8422e983bd55#code#L1768)
+
 # How to use
 
 ## Prerequisites
