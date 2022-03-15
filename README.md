@@ -13,8 +13,7 @@
 <p align="center">
   <a href="https://opensource.org/licenses/Apache-2"><img src="https://img.shields.io/badge/License-Apache-blue.svg?style=flat-square" alt="MIT"></a>
   <a href="https://github.com/Dentrax/cosigneth/releases/latest"><img src="https://img.shields.io/github/release/Dentrax/cosigneth.svg?style=flat-square" alt="GitHub release"></a>
-  <a href="https://goreportcard.com/report/github.com/Dentrax/cosigneth"><img src="https://goreportcard.com/badge/github.com/Dentrax/cosigneth?style=flat-square" alt="Go Report"></a>
-  <a href="https://github.com/Dentrax/cosigneth/actions?workflow=test"><img src="https://img.shields.io/github/workflow/status/Dentrax/cosigneth/Test?label=build&logo=github&style=flat-square" alt="Build Status"></a>
+  <a href="https://goreportcard.com/report/github.com/Dentrax/cosigneth/src/functions"><img src="https://goreportcard.com/badge/github.com/Dentrax/cosigneth/src/functions?style=flat-square" alt="Go Report"></a>
   <a href="https://app.netlify.com/sites/cosigneth/deploys"><img src="https://api.netlify.com/api/v1/badges/d843e41a-1308-472c-9feb-1e0d507234d4/deploy-status" alt="Netlify"></a>
 </p>
 
