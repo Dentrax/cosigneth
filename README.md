@@ -4,7 +4,7 @@
 
 <div align="center">
  <strong>
-   An experimental decentralized application for storing and verifying container image signatures as an NFT on Ethereum*
+   An experimental decentralized application for storing and verifying container image signatures as an NFT on Ethereum
  </strong>
 </div>
 
@@ -20,7 +20,7 @@
 
 <br />
 
-*cosigneth*, is a decentralized application that runs on Ethereum Rinkeby Testnet. Each signature stored as an NFT using [EIP-721](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md) standard. Sign your image digest using your public address and verify them on the blockchain by Solidity [contract](https://github.com/Dentrax/cosigneth/blob/main/src/contracts/Cosigneth.sol). Custom [serverless function](https://github.com/Dentrax/cosigneth/tree/main/src/functions) is created to interact with OCI registiries with your given [JWT token](https://docs.docker.com/registry/spec/auth/jwt).
+*[cosigneth](https://cosigneth.dev)*, is a decentralized application that runs on Ethereum Rinkeby Testnet. Each signature stored as an NFT using [EIP-721](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md) standard. Sign your image digest using your public address and verify them on the blockchain by Solidity [contract](https://github.com/Dentrax/cosigneth/blob/main/src/contracts/Cosigneth.sol). Custom [serverless function](https://github.com/Dentrax/cosigneth/tree/main/src/functions) is created to interact with OCI registiries with your given [JWT token](https://docs.docker.com/registry/spec/auth/jwt).
 We use [ethers.signMessage()](https://docs.ethers.io/v5/api/signer/#Signer-signMessage) to sign given [image digest](https://github.com/opencontainers/image-spec/blob/main/descriptor.md#digests) using your injected wallet. By giving digest and corresponding signature, we can recover public wallet address by using [ECDSA-tryRecover](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/cryptography/ECDSA.sol) method. See _Appendix F_ in [yellowpaper](https://ethereum.github.io/yellowpaper/paper.pdf) for more information.
 
 [![GIF](.res/preview.gif)](https://cosigneth.dev)
@@ -114,7 +114,6 @@ You can use [crane](https://github.com/google/go-containerregistry/tree/main/cmd
 
 ```bash
 $ crane ls furkanturkal/busybox
-0.1.0
 0.2.0
 sha256-c734ddd2cee195855d0b5b1906afdf84b68940bc736fca03e2d05d2bd228ea9d.eth
 
@@ -151,6 +150,10 @@ You should expect the following output:
 }
 ```
 
+# Motivation
+
+Because, why not? NFTs are [trend topic](https://trends.google.com/trends/explore?q=nft) nowadays. This idea is a good opportunity to create a decentralized application from scratch. Building a website using Next.js with Material UI was a good experince. We learned to interact with the contract using Web3.js.
+
 # Running on Local
 
 ## Web
@@ -172,6 +175,7 @@ $ go run . -port 8080
 
 * If transaction failed, we attach ETH object anyway. (not actually signed but it will look like that)
 * We haven't a resiliency mechanism in case we couldn't talk with Registry API. (actually signed but won't look like that)
+* Reverse proxy does not work well on localhost if you want to run local server.
 
 # Tech Stack
 
